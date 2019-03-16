@@ -1,4 +1,4 @@
-#include <string>
+#include <deque>
 
 using namespace std;
 
@@ -7,13 +7,15 @@ enum CardSuit { spade, cross, diamonds, hearts };
 
 class Card
 {
+    char buffer[1024];
+
 public:
     CardValue value;
     CardSuit suit;
 
     Card(CardValue card_value, CardSuit card_suit);
     void Dump();
-    string getAsString();
+    const char* getAsString();
 };
 
 class Pack 
@@ -21,12 +23,15 @@ class Pack
     int count; 
     deque<Card*> my_deque;
 
+    char buffer[2000];
+
 public:  //начало списка публичных 
      Pack();  //конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
+     ~Pack();
 
-     Card get();
+     Card* get();
      void Dump();
      void shuffle(); 
 
-     string getAsString();
+     const char* getAsString();
 };

@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-#include <deque>  
 #include <string>
-#include <ctime>  
 
 #include <unistd.h> 
 #include <sys/socket.h> 
@@ -10,7 +8,6 @@
 #include <netinet/in.h> 
 #include <string.h>
 
-#include <iostream>
 #include <thread>
 
 #include "cards.h"
@@ -43,7 +40,7 @@ int main ()
         exit(EXIT_FAILURE); 
     } 
 
-    if (listen(sockfd, 200000) < 0)
+    if (listen(sockfd, 5000) < 0)
     { 
         perror("listen"); 
         exit(EXIT_FAILURE); 
@@ -61,13 +58,19 @@ int main ()
         }
 
 	try
-	{        // Constructs the new thread and runs it. Does not block execution.
+	{
+            // Constructs the new thread and runs it. Does not block execution.
             thread t1(handle_client_connection, new_socket);
             t1.detach();
 	}
+	catch (std::runtime_error &ex)
+	{
+            cerr << "Error in thread creation: " << ex.what() << endl << flush;
+	    exit(EXIT_FAILURE);
+	}
 	catch(...)
 	{
-	    cout << "we have a critical unknown problem" << endl << flush;
+	    cout << "We have a critical unknown problem in thread creation" << endl << flush;
             exit(EXIT_FAILURE); 
 	}
     }    
@@ -77,6 +80,7 @@ int main ()
 
 void handle_client_connection(int new_socket)
 {
+	char header[2048];
 	char buffer[2048] = {0};
 
         int valread = read(new_socket ,buffer, 2048); 
@@ -91,23 +95,23 @@ void handle_client_connection(int new_socket)
    	Pack koloda;
    	koloda.shuffle();
 
-	const char* header = "HTTP/2.0 200 OK\n" \
+	const char* strPack = koloda.getAsString();
+
+	sprintf(header, "HTTP/2.0 200 OK\n" \
 		"Server: vadims/1.2.1\n" \
 		"Date: Sat, 08 Mar 2014 22:53:46 GMT\n" \
-		"Content-Length: 1345\n" \
+		"Content-Length: %d\n" \
 		"Last-Modified: Sat, 08 Jan 2018 22:53:30 GMT\n" \
 		"Connection: keep-alive\n" \
 		"Accept-Ranges: bytes\n" \
-		"Content-type: text/html\n\n";
-
-	string strPack = koloda.getAsString();
+		"Content-type: text/html\n\n", strlen(strPack));
 
         if (send(new_socket, header, strlen(header) , 0) < 0)
         { 
             perror("send to client"); 
             exit(EXIT_FAILURE); 
         } 
-	if (send(new_socket, strPack.c_str(),  strPack.size(), 0) < 0)
+	if (send(new_socket, strPack,  strlen(strPack), 0) < 0)
         { 
             perror("send to client"); 
             exit(EXIT_FAILURE); 

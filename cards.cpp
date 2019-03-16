@@ -1,15 +1,13 @@
 #include <stdio.h>
+#include <string.h>
 #include <iostream>
-#include <deque>  
-#include <string>
-#include <ctime>  
 
 #include "cards.h"
 
 using namespace std;
 
-string SuitMass [4] = {"\"spade\"", "\"cross\"", "\"diamonds\"", "\"hearts\""};
-string ValueMass [] = {"\"7\"", "\"8\"", "\"9\"","\"10\"","\"jack\"","\"lady\"","\"king\"","\"ace\""};
+const char* SuitMass [] = {"\"spade\"", "\"cross\"", "\"diamonds\"", "\"hearts\""};
+const char* ValueMass [] = {"\"7\"", "\"8\"", "\"9\"","\"10\"","\"jack\"","\"lady\"","\"king\"","\"ace\""};
 
 Card::Card(CardValue card_value, CardSuit card_suit)
 {

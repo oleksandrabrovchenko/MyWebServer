@@ -2,7 +2,6 @@ all: hello
 
 hello:  test.o cards.o 
 	g++ test.o cards.o -o hello_alex -s -static
-	cp hello_alex.exe C:\Apache24\cgi-bin\
 
 test.o: test.cpp
 	g++ -c test.cpp
