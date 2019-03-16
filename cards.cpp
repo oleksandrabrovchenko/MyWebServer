@@ -38,7 +38,8 @@ Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение н
 
     for (int val=0; val<8; val=val+1)
     {
-	Card* c = new Card((CardValue)val, spade);
+	Card* c;
+	c = new Card((CardValue)val, spade);
 	my_deque.push_front(c);
 	c = new Card((CardValue)val, cross);
 	my_deque.push_front(c);
