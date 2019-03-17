@@ -32,38 +32,50 @@ ostream &operator<<(ostream &os, Card const &card)
    //   {"value": "card.value", "suit": "card.suit"} 
 }
 
-Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
+//конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
+Pack::Pack() : 
+	c1 (v7, spade),
+	c2 (v8, spade),
+	c3 (v9, spade),
+	c4 (v10, spade),
+	c5 (jack, spade),
+	c6 (lady, spade),
+	c7 (king, spade),
+	c8 (ace, spade),
+	c9 (v7, cross),
+	c10 (v8, cross),
+	c11 (v9, cross),
+	c12 (v10, cross),
+	c13 (jack, cross),
+	c14 (lady, cross),
+	c15 (king, cross),
+	c16 (ace, cross),
+	c17 (v7, diamonds),
+	c18 (v8, diamonds),
+	c19 (v9, diamonds),
+	c20 (v10, diamonds),
+	c21 (jack, diamonds),
+	c22 (lady, diamonds),
+	c23 (king, diamonds),
+	c24 (ace, diamonds),
+	c25 (v7, hearts),
+	c26 (v8, hearts),
+	c27 (v9, hearts),
+	c28 (v10, hearts),
+	c29 (jack, hearts),
+	c30 (lady, hearts),
+	c31 (king, hearts),
+	c32 (ace, hearts)
 {
-    for (int val=0; val<8; val=val+1)
-    {
-	Card* c;
-	c = new Card((CardValue)val, spade);
-	my_deque.push_back(c);
-	c = new Card((CardValue)val, cross);
-	my_deque.push_back(c);
-	c = new Card((CardValue)val, diamonds);
-	my_deque.push_back(c);
-	c = new Card((CardValue)val, hearts);
-	my_deque.push_back(c);
-    }
-}
-
-// Destructor. We need to delete created cards when the pack is being destroyed.
-Pack::~Pack()
-{
-    for (int i=0; i<my_deque.size(); i++)
-    {
-	Card* card = my_deque[i];
-	delete card;
-    }
 }
 
 Card* Pack::get()
 { 
-	printf ("Cards are %d\n", my_deque.size());
-	Card* card = my_deque.front();
-	my_deque.pop_back();
-	return card;
+//	printf ("Cards are %d\n", size());
+	// New implementation is needed
+//	Card* card = front();
+//	pop_back();
+	return NULL;
 }
 
 void Pack::shuffle()
@@ -75,9 +87,9 @@ void Pack::shuffle()
 	int x1, x2;
 	x1 = rand() % 32;
 	x2 = rand() % 32;
-	Card* card = my_deque[x1];
-	my_deque[x1] = my_deque[x2];
-	my_deque[x2] = card;
+	Card* card = m_pCardsArray[x1];
+	m_pCardsArray[x1] = m_pCardsArray[x2];
+	m_pCardsArray[x2] = card;
     }
 }
 
@@ -86,9 +98,9 @@ void Pack::Dump()
 {
     cout << "{ \"Pack\": [" << endl;
 
-    for (int i=0; i<my_deque.size(); i++)
+    for (int i=0; i<32; i++)
     {
-	Card* card = my_deque[i];
+	Card* card = m_pCardsArray[i];
 	card->Dump();
         if (i!=31) cout << ",";
 	cout << endl;
@@ -104,9 +116,9 @@ const char* Pack::getAsString()
     strncpy(pBuffer,  "{ \"Pack\": [\n", 12);
     pBuffer += 12;
 
-    for (int i=0; i<my_deque.size(); i++)
+    for (int i=0; i<32; i++)
     {
-	Card* card = my_deque[i];
+	Card* card = m_pCardsArray[i];
 	strcpy(pBuffer, card->getAsString());
 	pBuffer += strlen(card->getAsString());
         if (i != 31) *pBuffer++ = ',';
