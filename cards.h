@@ -1,4 +1,4 @@
-#include <deque>
+#include <vector>
 
 using namespace std;
 
@@ -20,7 +20,7 @@ public:
 
 class Pack 
 {
-    deque<Card*> my_deque;
+    vector<Card*> my_deque;
 
     char buffer[2000];
 
