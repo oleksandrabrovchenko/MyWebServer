@@ -32,26 +32,41 @@ ostream &operator<<(ostream &os, Card const &card)
    //   {"value": "card.value", "suit": "card.suit"} 
 }
 
-Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
+//конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
+Pack::Pack() : 
+	c1 (v7, spade),
+	c2 (v8, spade),
+	c3 (v9, spade),
+	c4 (v10, spade),
+	c5 (jack, spade),
+	c6 (lady, spade),
+	c7 (king, spade),
+	c8 (ace, spade),
+	c9 (v7, cross),
+	c10 (v8, cross),
+	c11 (v9, cross),
+	c12 (v10, cross),
+	c13 (jack, cross),
+	c14 (lady, cross),
+	c15 (king, cross),
+	c16 (ace, cross),
+	c17 (v7, diamonds),
+	c18 (v8, diamonds),
+	c19 (v9, diamonds),
+	c20 (v10, diamonds),
+	c21 (jack, diamonds),
+	c22 (lady, diamonds),
+	c23 (king, diamonds),
+	c24 (ace, diamonds),
+	c25 (v7, hearts),
+	c26 (v8, hearts),
+	c27 (v9, hearts),
+	c28 (v10, hearts),
+	c29 (jack, hearts),
+	c30 (lady, hearts),
+	c31 (king, hearts),
+	c32 (ace, hearts)
 {
-    int index=0;
-
-    for (int val=0; val<8; val=val+1)
-    {
-	m_pCardsArray[index++] = new Card((CardValue)val, spade);
-	m_pCardsArray[index++] = new Card((CardValue)val, spade);
-	m_pCardsArray[index++] = new Card((CardValue)val, spade);
-	m_pCardsArray[index++] = new Card((CardValue)val, spade);
-    }
-}
-
-// Destructor. We need to delete created cards when the pack is being destroyed.
-Pack::~Pack()
-{
-    for (int i=0; i<32; i++)
-    {
-	delete m_pCardsArray[i];
-    }
 }
 
 Card* Pack::get()
