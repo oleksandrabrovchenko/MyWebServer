@@ -1,13 +1,13 @@
 all: hello
 
 hello:  test.o cards.o 
-	g++ test.o cards.o -o hello_alex -s -static
+	g++ -std=c++11 test.o cards.o -o hello_alex -s -static
 
 test.o: test.cpp
-	g++ -c test.cpp
+	g++ -std=c++11 -c test.cpp
 
 cards.o: cards.cpp
-	 g++ -c cards.cpp
+	 g++ -std=c++11 -c cards.cpp
 
 clean:
 	rm -rf *.o hello
