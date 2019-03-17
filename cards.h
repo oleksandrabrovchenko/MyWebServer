@@ -18,10 +18,8 @@ public:
     const char* getAsString();
 };
 
-class Pack 
+class Pack : deque<Card*>
 {
-    deque<Card*> my_deque;
-
     char buffer[2000];
 
 public:  //начало списка публичных 

@@ -38,31 +38,31 @@ Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение н
     {
 	Card* c;
 	c = new Card((CardValue)val, spade);
-	my_deque.push_front(c);
+	push_front(c);
 	c = new Card((CardValue)val, cross);
-	my_deque.push_front(c);
+	push_front(c);
 	c = new Card((CardValue)val, diamonds);
-	my_deque.push_front(c);
+	push_front(c);
 	c = new Card((CardValue)val, hearts);
-	my_deque.push_front(c);
+	push_front(c);
     }
 }
 
 // Destructor. We need to delete created cards when the pack is being destroyed.
 Pack::~Pack()
 {
-    for (int i=0; i<my_deque.size(); i++)
+    for (int i=0; i<size(); i++)
     {
-	Card* card = my_deque[i];
+	Card* card = at(i);
 	delete card;
     }
 }
 
 Card* Pack::get()
 { 
-	printf ("Cards are %d\n", my_deque.size());
-	Card* card = my_deque.front();
-	my_deque.pop_back();
+	printf ("Cards are %d\n", size());
+	Card* card = front();
+	pop_back();
 	return card;
 }
 
@@ -75,9 +75,9 @@ void Pack::shuffle()
 	int x1, x2;
 	x1 = rand() % 32;
 	x2 = rand() % 32;
-	Card* card = my_deque[x1];
-	my_deque[x1] = my_deque[x2];
-	my_deque[x2] = card;
+	Card* card = at(x1);
+	at(x1) = at(x2);
+	at(x2) = card;
     }
 }
 
@@ -86,9 +86,9 @@ void Pack::Dump()
 {
     cout << "{ \"Pack\": [" << endl;
 
-    for (int i=0; i<my_deque.size(); i++)
+    for (int i=0; i<size(); i++)
     {
-	Card* card = my_deque[i];
+	Card* card = at(i);
 	card->Dump();
         if (i!=31) cout << ",";
 	cout << endl;
@@ -104,9 +104,9 @@ const char* Pack::getAsString()
     strncpy(pBuffer,  "{ \"Pack\": [\n", 12);
     pBuffer += 12;
 
-    for (int i=0; i<my_deque.size(); i++)
+    for (int i=0; i<size(); i++)
     {
-	Card* card = my_deque[i];
+	Card* card = at(i);
 	strcpy(pBuffer, card->getAsString());
 	pBuffer += strlen(card->getAsString());
         if (i != 31) *pBuffer++ = ',';
