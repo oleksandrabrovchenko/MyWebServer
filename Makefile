@@ -4,10 +4,10 @@ hello:  test.o cards.o
 	g++ -std=c++11 test.o cards.o -o hello_alex -s -static -pthread
 
 test.o: test.cpp
-	g++ -std=c++11 -c test.cpp
+	g++ -std=c++11 -c test.cpp -lpthread
 
 cards.o: cards.cpp
-	 g++ -std=c++11 -c cards.cpp
+	 g++ -std=c++11 -c cards.cpp -lpthread
 
 clean:
 	rm -rf *.o hello
