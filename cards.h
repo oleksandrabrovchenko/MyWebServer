@@ -20,7 +20,6 @@ public:
 
 class Pack 
 {
-    int count; 
     deque<Card*> my_deque;
 
     char buffer[2000];

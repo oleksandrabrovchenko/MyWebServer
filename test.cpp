@@ -96,6 +96,7 @@ void handle_client_connection(int new_socket)
    	koloda.shuffle();
 
 	const char* strPack = koloda.getAsString();
+	int nStrPackLen = strlen(strPack);
 
 	sprintf(header, "HTTP/2.0 200 OK\n" \
 		"Server: vadims/1.2.1\n" \
@@ -104,14 +105,14 @@ void handle_client_connection(int new_socket)
 		"Last-Modified: Sat, 08 Jan 2018 22:53:30 GMT\n" \
 		"Connection: keep-alive\n" \
 		"Accept-Ranges: bytes\n" \
-		"Content-type: text/html\n\n", strlen(strPack));
+		"Content-type: text/html\n\n", nStrPackLen);
 
         if (send(new_socket, header, strlen(header) , 0) < 0)
         { 
             perror("send to client"); 
             exit(EXIT_FAILURE); 
         } 
-	if (send(new_socket, strPack,  strlen(strPack), 0) < 0)
+	if (send(new_socket, strPack,  nStrPackLen, 0) < 0)
         { 
             perror("send to client"); 
             exit(EXIT_FAILURE); 
