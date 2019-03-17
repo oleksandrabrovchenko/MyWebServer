@@ -1,4 +1,4 @@
-#include <deque>
+#include <vector>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ public:
     const char* getAsString();
 };
 
-class Pack : deque<Card*>
+class Pack : vector<Card*>
 {
     char buffer[2000];
 

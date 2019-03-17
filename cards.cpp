@@ -38,13 +38,13 @@ Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение н
     {
 	Card* c;
 	c = new Card((CardValue)val, spade);
-	push_front(c);
+	push_back(c);
 	c = new Card((CardValue)val, cross);
-	push_front(c);
+	push_back(c);
 	c = new Card((CardValue)val, diamonds);
-	push_front(c);
+	push_back(c);
 	c = new Card((CardValue)val, hearts);
-	push_front(c);
+	push_back(c);
     }
 }
 
