@@ -105,8 +105,8 @@ const char* Pack::getAsString()
 {
     char *pBuffer = &buffer[0];
 
-    strcpy(pBuffer,  "{ \"Pack\": [\n");
-    pBuffer += strlen("{ \"Pack\": [\n");
+    strncpy(pBuffer,  "{ \"Pack\": [\n", 12);
+    pBuffer += 12;
 
     for (int i=0; i<32; i++)
     {
