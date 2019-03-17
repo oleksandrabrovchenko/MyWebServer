@@ -1,5 +1,3 @@
-#include <vector>
-
 using namespace std;
 
 enum CardValue {v6, v7};
@@ -18,8 +16,9 @@ public:
     const char* getAsString();
 };
 
-class Pack : vector<Card*>
+class Pack
 {
+    Card* m_pCardsArray[32];
     char buffer[2000];
 
 public:  //начало списка публичных 

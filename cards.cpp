@@ -34,36 +34,33 @@ ostream &operator<<(ostream &os, Card const &card)
 
 Pack::Pack()  //конструктор, имя идентично имени класса, возвращаемое значение не задавать, только в public
 {
+    int index=0;
+
     for (int val=0; val<8; val=val+1)
     {
-	Card* c;
-	c = new Card((CardValue)val, spade);
-	push_back(c);
-	c = new Card((CardValue)val, cross);
-	push_back(c);
-	c = new Card((CardValue)val, diamonds);
-	push_back(c);
-	c = new Card((CardValue)val, hearts);
-	push_back(c);
+	m_pCardsArray[index++] = new Card((CardValue)val, spade);
+	m_pCardsArray[index++] = new Card((CardValue)val, spade);
+	m_pCardsArray[index++] = new Card((CardValue)val, spade);
+	m_pCardsArray[index++] = new Card((CardValue)val, spade);
     }
 }
 
 // Destructor. We need to delete created cards when the pack is being destroyed.
 Pack::~Pack()
 {
-    for (int i=0; i<size(); i++)
+    for (int i=0; i<32; i++)
     {
-	Card* card = at(i);
-	delete card;
+	delete m_pCardsArray[i];
     }
 }
 
 Card* Pack::get()
 { 
-	printf ("Cards are %d\n", size());
-	Card* card = front();
-	pop_back();
-	return card;
+//	printf ("Cards are %d\n", size());
+	// New implementation is needed
+//	Card* card = front();
+//	pop_back();
+	return NULL;
 }
 
 void Pack::shuffle()
@@ -75,9 +72,9 @@ void Pack::shuffle()
 	int x1, x2;
 	x1 = rand() % 32;
 	x2 = rand() % 32;
-	Card* card = at(x1);
-	at(x1) = at(x2);
-	at(x2) = card;
+	Card* card = m_pCardsArray[x1];
+	m_pCardsArray[x1] = m_pCardsArray[x2];
+	m_pCardsArray[x2] = card;
     }
 }
 
@@ -86,9 +83,9 @@ void Pack::Dump()
 {
     cout << "{ \"Pack\": [" << endl;
 
-    for (int i=0; i<size(); i++)
+    for (int i=0; i<32; i++)
     {
-	Card* card = at(i);
+	Card* card = m_pCardsArray[i];
 	card->Dump();
         if (i!=31) cout << ",";
 	cout << endl;
@@ -104,9 +101,9 @@ const char* Pack::getAsString()
     strncpy(pBuffer,  "{ \"Pack\": [\n", 12);
     pBuffer += 12;
 
-    for (int i=0; i<size(); i++)
+    for (int i=0; i<32; i++)
     {
-	Card* card = at(i);
+	Card* card = m_pCardsArray[i];
 	strcpy(pBuffer, card->getAsString());
 	pBuffer += strlen(card->getAsString());
         if (i != 31) *pBuffer++ = ',';
