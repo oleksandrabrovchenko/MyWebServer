@@ -1,6 +1,7 @@
 all: hello
 
 hello:  test.o cards.o 
+	g++ -std=c++11 test.o cards.o -o hello_alex -s -pthread -lpthread
 	g++ -std=c++11 test.o cards.o -o hello_alex -s -static -pthread -lpthread
 
 test.o: test.cpp
